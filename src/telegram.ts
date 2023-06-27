@@ -1,10 +1,10 @@
-import { getApiRoot } from './utils';
+import { get_api_root } from './utils';
 
-async function callTelegramAPI(token: string, methodName: string, body: any) {
-	const URL = `${getApiRoot(token)}/${methodName}`;
-	const bodyStr = JSON.stringify(body);
+async function call_telegram_api(token: string, method_name: string, body: any) {
+	const URL = `${get_api_root(token)}/${method_name}`;
+	const body_str = JSON.stringify(body);
 	const request = new Request(URL, {
-		body: bodyStr,
+		body: body_str,
 		headers: new Headers({
 			'Content-Type': 'application/json'
 		}),
@@ -14,14 +14,14 @@ async function callTelegramAPI(token: string, methodName: string, body: any) {
 	return await fetch(request);
 }
 
-export async function sendMessage(
+export async function send_message(
 	token: string,
 	chat_id: string | number,
 	text: string,
 	parse_mode: "MarkdownV2" | "HTML" | undefined,
 	reply_to_message_id: number | undefined = undefined
 ) {
-	return await callTelegramAPI(token, 'sendMessage', {
+	return await call_telegram_api(token, 'sendMessage', {
 		chat_id,
 		text,
 		parse_mode,

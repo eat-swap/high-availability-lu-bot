@@ -1,5 +1,5 @@
-import { concatName, is_command, random } from './utils';
-import { sendMessage } from './telegram';
+import { concat_name, is_command, random } from './utils';
+import { send_message } from './telegram';
 import { API_TOKEN } from './config';
 
 class S {
@@ -43,7 +43,7 @@ export async function handle_n(message: any) {
 	const space_pos = text.indexOf(' ');
 	const n = space_pos !== -1 ? Number(text.slice(1 + space_pos)) : -1;
 
-	await sendMessage(
+	await send_message(
 		API_TOKEN,
 		message.chat.id,
 		n >= 0 && n <= 10 ? f(n).to_string() : "?",

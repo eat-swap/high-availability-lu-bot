@@ -8,8 +8,8 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 import { WEBHOOK_PREFIX } from './config';
-import { handleBotRequest } from './handle_bot';
-import { generateSimpleResponse } from './utils';
+import { handle_bot_request } from './handle_bot';
+import { generate_simple_response } from './utils';
 
 export interface Env {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -48,11 +48,11 @@ export default {
 
 		// ----- Filter non-bot requests -----
 		if (path.startsWith("/" + WEBHOOK_PREFIX)) {
-			return await handleBotRequest(request, ctx);
+			return await handle_bot_request(request, ctx);
 		}
 
 		// If reached here, the request is not what we want.
 		// Return a "402 Payment Required" response for fun.
-		return generateSimpleResponse("402 Payment Required", 402);
+		return generate_simple_response("402 Payment Required", 402);
 	},
 };

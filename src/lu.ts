@@ -1,5 +1,5 @@
-import { concatName, is_command, random } from './utils';
-import { sendMessage } from './telegram';
+import { concat_name, is_command, random } from './utils';
+import { send_message } from './telegram';
 import { API_TOKEN } from './config';
 
 const lu_talk = [
@@ -19,11 +19,11 @@ export async function handle_lu(message: any) {
 	const lu_content = space_pos !== -1 ?
 		text.slice(1 + space_pos) :
 		message?.reply_to_message?.from ?
-			concatName(message?.reply_to_message?.from.first_name, message?.reply_to_message?.from.last_name) :
-			concatName(message.from.first_name, message.from.last_name);
+			concat_name(message?.reply_to_message?.from.first_name, message?.reply_to_message?.from.last_name) :
+			concat_name(message.from.first_name, message.from.last_name);
 
 	const space = lu_content.charCodeAt(lu_content.length - 1) > 127 ? '' : ' ';
-	await sendMessage(
+	await send_message(
 		API_TOKEN,
 		message.chat.id,
 		`${lu_content}${space}${random(lu_talk)}`,

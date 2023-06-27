@@ -3,7 +3,7 @@
  * @param body string of response body
  * @param status status code of response
  */
-export function generateSimpleResponse(body: string, status: number) {
+export function generate_simple_response(body: string, status: number) {
 	return new Response(body, {
 		status: status,
 	})
@@ -13,11 +13,11 @@ export function generateSimpleResponse(body: string, status: number) {
  * Construct API root for specific Telegram token
  * @param token the api token to be used
  */
-export function getApiRoot(token: string) {
+export function get_api_root(token: string) {
 	return `https://api.telegram.org/bot${token}`
 }
 
-export function parseJSON(str: string): readonly [any, boolean] {
+export function parse_json(str: string): readonly [any, boolean] {
 	try {
 		return [JSON.parse(str), true] as const;
 	} catch (err) {
@@ -25,7 +25,7 @@ export function parseJSON(str: string): readonly [any, boolean] {
 	}
 }
 
-export function concatName(first: string | undefined, last: string | undefined): string {
+export function concat_name(first: string | undefined, last: string | undefined): string {
 	let ret = '';
 	if (first) {
 		ret += first;

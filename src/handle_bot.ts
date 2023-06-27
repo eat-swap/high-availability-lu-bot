@@ -2,26 +2,26 @@ import * as utils from "./utils";
 import { handle_lu } from './lu';
 import { handle_n } from './n';
 
-export async function handleBotRequest(request : Request, ctx : ExecutionContext) {
+export async function handle_bot_request(request : Request, ctx : ExecutionContext) {
 	// Non-POST requests were not from Telegram.
 	if (request.method != "POST") {
-		return utils.generateSimpleResponse("405 Method Not Allowed", 405);
+		return utils.generate_simple_response("405 Method Not Allowed", 405);
 	}
 
 	// POST body
 	// This is a string
-	const requestBody = await request.text();
-	console.log(requestBody);
+	const request_body = await request.text();
+	console.log(request_body);
 
 	// Parse JSON from body
-	const [jsonObj, parseOK] = utils.parseJSON(requestBody);
-	if (!parseOK || !jsonObj.message) {
+	const [json_obj, parseOK] = utils.parse_json(request_body);
+	if (!parseOK || !json_obj.message) {
 		// Discard silently.
 		// For telegram, this means something not implemented (thus cannot handle, 2xx to ignore).
 		// For any 3rd party, do not let them know how we worked.
-		return utils.generateSimpleResponse("201 Created", 201);
+		return utils.generate_simple_response("201 Created", 201);
 	}
-	const message = jsonObj.message;
+	const message = json_obj.message;
 
 	await Promise.all([
 		handle_lu(message),
@@ -29,5 +29,5 @@ export async function handleBotRequest(request : Request, ctx : ExecutionContext
 	]);
 
 	// Respond to requester
-	return utils.generateSimpleResponse("200 OK", 200);
+	return utils.generate_simple_response("200 OK", 200);
 }
