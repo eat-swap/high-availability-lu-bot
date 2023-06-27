@@ -6,6 +6,7 @@ const lu_talk = [
 	"你带我走吧😭",
 	"你到底是谁😭",
 	"你给我出来😭",
+	"你在哪里😭",
 ];
 
 function starts_with_space_or_all(s: string, prefix: string): boolean {
