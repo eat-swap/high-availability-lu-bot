@@ -40,3 +40,12 @@ export function concatName(first: string | undefined, last: string | undefined):
 export function random<T>(list: T[]): T {
 	return list[Math.floor(Math.random() * list.length)];
 }
+
+function starts_with_space_or_all(s: string, prefix: string): boolean {
+	return s.startsWith(`${prefix} `) || s === prefix;
+}
+
+export function is_command(text: string, cmd: string): boolean {
+	return starts_with_space_or_all(text, cmd) ||
+		starts_with_space_or_all(text, `${cmd}@high_availability_lu_bot`);
+}

@@ -1,4 +1,4 @@
-import { concatName, random } from './utils';
+import { concatName, is_command, random } from './utils';
 import { sendMessage } from './telegram';
 import { API_TOKEN } from './config';
 
@@ -9,19 +9,12 @@ const lu_talk = [
 	"你在哪里😭",
 ];
 
-function starts_with_space_or_all(s: string, prefix: string): boolean {
-	return s.startsWith(`${prefix} `) || s === prefix;
-}
 
 export async function handle_lu(message: any) {
-	if (!message?.text) {
+	if (!message?.text || !is_command(message.text, "/lu")) {
 		return;
 	}
 	const text = message.text as string;
-	if (!(starts_with_space_or_all(text, "/lu@high_availability_lu_bot") || starts_with_space_or_all(text, "/lu"))) {
-		return;
-	}
-
 	const space_pos = text.indexOf(' ');
 	const lu_content = space_pos !== -1 ?
 		text.slice(1 + space_pos) :
