@@ -1,5 +1,6 @@
 import * as utils from "./utils";
 import { handle_lu } from './lu';
+import { handle_n } from './n';
 
 export async function handleBotRequest(request : Request, ctx : ExecutionContext) {
 	// Non-POST requests were not from Telegram.
@@ -22,9 +23,10 @@ export async function handleBotRequest(request : Request, ctx : ExecutionContext
 	}
 	const message = jsonObj.message;
 
-	const lu_promise = handle_lu(message);
-
-	await Promise.all([lu_promise]);
+	await Promise.all([
+		handle_lu(message),
+		handle_n(message),
+	]);
 
 	// Respond to requester
 	return utils.generateSimpleResponse("200 OK", 200);
